@@ -127,6 +127,7 @@ extension TableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         UrlRequestComponent.searchString = searchBar.text ?? ""
         viewModel.dataSource.removeAll()
+        UrlRequestComponent.pageCount = 0
         getNews()
     }
 }

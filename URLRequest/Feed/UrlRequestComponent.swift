@@ -46,7 +46,7 @@ class UrlRequestComponent: NSURLComponents {
         }
     }
     
-    func createNewRequest() -> URLRequest {
+    private func createNewRequest() -> URLRequest {
         var urlComponent = URLComponents()
         urlComponent.scheme = "https"
         urlComponent.host = "newsapi.org"
@@ -59,6 +59,16 @@ class UrlRequestComponent: NSURLComponents {
 //        request.addValue("026b2fe1f3744c38b02aa0793e534811", forHTTPHeaderField: "X-Api-Key")
         request.addValue("123bef0277b640839e0a66bdbc64ed8d", forHTTPHeaderField: "X-Api-Key")
         return request
+    }
+    
+    private func setPageCount(_ totalResults: Int){
+        let pageSize = Int(pageSize) //тут узнаём сколько у нас страниц
+        
+        if ((totalResults % pageSize!) != 0){
+            pageCount = (totalResults/pageSize!)+1
+        } else {
+            pageCount = (totalResults/pageSize!)
+        }
     }
     
 
@@ -75,13 +85,7 @@ class UrlRequestComponent: NSURLComponents {
                     let jsonNews = try decoder.decode(News.self, from: data)
                     
                     let totalResults = jsonNews.totalResults
-                    let pageSize = Int(self.pageSize) //тут ниже узнаём сколько у нас страниц
-                    
-                    if ((totalResults % pageSize!) != 0){
-                        self.pageCount = (totalResults/pageSize!)+1
-                    } else {
-                        self.pageCount = (totalResults/pageSize!)
-                    }
+                    self.setPageCount(totalResults)
                     
                     userCompletionHandler(jsonNews, nil)
 
