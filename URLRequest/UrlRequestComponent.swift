@@ -19,17 +19,6 @@ class UrlRequestComponent: NSURLComponents {
     
     let pageSize = "10"
     
-    struct News: Decodable {
-        let status: String
-        let totalResults: Int
-        let articles: [Article]
-    }
-    
-    struct Article: Decodable {
-        let title: String
-        //let urlToImage: String //на потом
-    }
-    
     private func getQueryParams() -> [String: String] { //в зависимости от того первый это запрос или нет, мы берем либо параметры без номера страницы, либо с номером, когда уже посчитали сколько будет страниц
         
         if pageCount == 0 {

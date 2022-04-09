@@ -14,10 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        
-        let viewModel = TableViewModel()
-        let UrlRequestComponent = UrlRequestComponent()
-        let tableViewController = TableViewController(viewModel: viewModel, UrlRequestComponent: UrlRequestComponent)
+        let networker = Networker()
+        let newsFetcher = NewsFetcher(networker: networker)
+        let viewModel = TableViewModel(newsFetcher: newsFetcher)
+        let tableViewController = TableViewController(viewModel: viewModel)
         
         let navController = UINavigationController(rootViewController: tableViewController)
         let tabController = UITabBarController()
