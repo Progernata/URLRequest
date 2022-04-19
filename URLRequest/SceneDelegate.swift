@@ -15,9 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let viewModel = TableViewModel()
-        let UrlRequestComponent = UrlRequestComponent()
-        let tableViewController = TableViewController(viewModel: viewModel, UrlRequestComponent: UrlRequestComponent)
+        let urlRequestSender = URLRequestSender()
+        let newsFetcher = NewsFetcher(urlRequestSender: urlRequestSender)
+        let viewModel = TableViewModel(newsFetcher: newsFetcher)
+        
+        let tableViewController = TableViewController(viewModel: viewModel)
         
         let navController = UINavigationController(rootViewController: tableViewController)
         let tabController = UITabBarController()
