@@ -45,6 +45,12 @@ class TableViewController: UIViewController {
         viewModel.reloadData = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.tableView.backgroundView = .none
+            }
+        }
+        viewModel.emptyDataSource = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.backgroundView = UIImageView(image: UIImage(named: "empty"))
             }
         }
     }

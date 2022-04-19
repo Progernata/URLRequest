@@ -12,6 +12,7 @@ class TableViewModel {
     var dataSource = [TableItem]()
     
     var reloadData: (() -> Void)?
+    var emptyDataSource: (() -> Void)?
     
     private let pageSize = 10
     
@@ -50,9 +51,12 @@ class TableViewModel {
                 guard let self = self else { return } //???
                 self.pageCount = news.totalResults / self.pageSize
                 if news.totalResults % self.pageSize != 0 {
-                        self.pageCount += 1
+                    self.pageCount += 1
                 }
                 self.fillDataSourse(news: news)
+                if news.totalResults == 0 {
+                    self.emptyDataSource?()
+                }
                 print("TableViewModel getNews for page \(self.page) pageCount \(self.pageCount)")
             case .failure(let error):
                 print(error.localizedDescription)
