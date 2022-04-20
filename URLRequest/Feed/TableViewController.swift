@@ -19,9 +19,10 @@ class TableViewController: UIViewController {
         return tableView
     }()
 
-    private let viewModel: TableViewModel
-    
     private let searchController = UISearchController(searchResultsController: nil)
+    private let emptyDataSourceBackground = UIImageView(image: UIImage(named: "empty"))
+    
+    private let viewModel: TableViewModel
     
     init(viewModel: TableViewModel) {
         self.viewModel = viewModel
@@ -50,7 +51,7 @@ class TableViewController: UIViewController {
         }
         viewModel.emptyDataSource = { [weak self] in
             DispatchQueue.main.async {
-                self?.tableView.backgroundView = UIImageView(image: UIImage(named: "empty"))
+                self?.tableView.backgroundView = self?.emptyDataSourceBackground
             }
         }
     }
