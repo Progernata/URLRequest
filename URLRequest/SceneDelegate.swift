@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         let urlRequestSender = URLRequestSender()
-        let newsFetcher = NewsFetcher(urlRequestSender: urlRequestSender)
+        let afurlRequestSender = AFURLRequestSender()
+        let newsFetcher = NewsFetcher(urlRequestSender: urlRequestSender, afurlRequestSender: afurlRequestSender)
         let viewModel = TableViewModel(newsFetcher: newsFetcher)
         
         let tableViewController = TableViewController(viewModel: viewModel)

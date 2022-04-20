@@ -21,7 +21,6 @@ class TableViewController: UIViewController {
 
     private let searchController = UISearchController(searchResultsController: nil)
     private let emptyDataSourceBackground = UIImageView(image: UIImage(named: "empty"))
-    
     private let viewModel: TableViewModel
     
     init(viewModel: TableViewModel) {
@@ -89,7 +88,6 @@ extension TableViewController: UITableViewDataSource {
     
         return cell
     }
-    
 }
 
 extension TableViewController: UITableViewDelegate {

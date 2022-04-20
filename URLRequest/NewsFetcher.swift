@@ -10,15 +10,19 @@ import Foundation
 class NewsFetcher {
 
     private let urlRequestSender: URLRequestSender
+    private let afurlRequestSender: AFURLRequestSender
     
-    init(urlRequestSender: URLRequestSender){
+    init(urlRequestSender: URLRequestSender, afurlRequestSender: AFURLRequestSender){
         self.urlRequestSender = urlRequestSender
+        self.afurlRequestSender = afurlRequestSender
     }
     
     func getNews(searchText: String, page: Int, pageSize: Int, completion: @escaping (Result<News, Error>) -> Void) {
         let params = getQueryParams(searchText: searchText, page: page, pageSize: pageSize)
         let request = createNewRequest(params: params)
-        urlRequestSender.sendURLRequest(request, completion: completion)
+        //urlRequestSender.sendURLRequest(request, completion: completion) //старый вызов
+        
+        afurlRequestSender.sendAFURLRequest(request, completion: completion)
     }
         
     private func createNewRequest(params: [String: String]) -> URLRequest {
