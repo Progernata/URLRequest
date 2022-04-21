@@ -22,7 +22,17 @@ class NewsFetcher {
         let request = createNewRequest(params: params)
         //urlRequestSender.sendURLRequest(request, completion: completion) //старый вызов
         
-        afurlRequestSender.sendAFURLRequest(request, completion: completion)
+        //afurlRequestSender.sendAFURLRequest(request, completion: completion) // Alamofire без роутера
+        if page > 1 {
+            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.search(searchText), completion: completion) // Alamofire с роутером, работает при пагинации
+        } else {
+            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.pagination(searchText, page), completion: completion) // Alamofire с роутером, работает только при запуске
+        }
+        
+    }
+    
+    func searchNews(){
+        
     }
         
     private func createNewRequest(params: [String: String]) -> URLRequest {

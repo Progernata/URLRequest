@@ -20,6 +20,7 @@
 		249F028C27F3B05A001BB35E /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249F028B27F3B05A001BB35E /* TableViewModel.swift */; };
 		249F028E27F3B081001BB35E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249F028D27F3B081001BB35E /* TableViewController.swift */; };
 		24CFE1EE28108B7900E5E784 /* AFURLRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFE1ED28108B7900E5E784 /* AFURLRequestSender.swift */; };
+		24CFE1F02811215100E5E784 /* NewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CFE1EF2811215100E5E784 /* NewsRouter.swift */; };
 		A6010D69E2662177082CE2BE /* Pods_URLRequestExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64B390DC55D74D63665B2CF7 /* Pods_URLRequestExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		249F028B27F3B05A001BB35E /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		249F028D27F3B081001BB35E /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		24CFE1ED28108B7900E5E784 /* AFURLRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AFURLRequestSender.swift; path = /Users/progernata/SkyEngDev/URLRequest/URLRequest/AFURLRequestSender.swift; sourceTree = "<absolute>"; };
+		24CFE1EF2811215100E5E784 /* NewsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRouter.swift; sourceTree = "<group>"; };
 		64B390DC55D74D63665B2CF7 /* Pods_URLRequestExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URLRequestExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A634C10E80D3F635352FAF79 /* Pods-URLRequestExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URLRequestExample.debug.xcconfig"; path = "Target Support Files/Pods-URLRequestExample/Pods-URLRequestExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +102,7 @@
 				24152568280F35A700E65BFE /* NewsFetcher.swift */,
 				24152566280F31E700E65BFE /* URLRequestSender.swift */,
 				24CFE1ED28108B7900E5E784 /* AFURLRequestSender.swift */,
+				24CFE1EF2811215100E5E784 /* NewsRouter.swift */,
 				249F027827F3AF04001BB35E /* TableViewCell.swift */,
 				249F028827F3AFFD001BB35E /* TableItem.swift */,
 				249F027A27F3AF04001BB35E /* Main.storyboard */,
@@ -243,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24CFE1F02811215100E5E784 /* NewsRouter.swift in Sources */,
 				249F027927F3AF04001BB35E /* TableViewCell.swift in Sources */,
 				249F028E27F3B081001BB35E /* TableViewController.swift in Sources */,
 				24152565280DF79100E65BFE /* News.swift in Sources */,
