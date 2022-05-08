@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewModel {
+class TableViewModel: ApiModelProtocol {
     
     var dataSource = [TableItem]()
     
@@ -16,7 +16,7 @@ class TableViewModel {
     
     private let pageSize = 10
     
-    private var searchText = "Bulgakov"
+    private var searchText = "asrgargsrgsdgfsgr"
     private var page = 1
     private var pageCount = 0
     
@@ -51,9 +51,10 @@ class TableViewModel {
                 guard let self = self else { return } //???
                 self.pageCount = news.totalResults / self.pageSize
                 if news.totalResults % self.pageSize != 0 {
-                    self.pageCount += 1
+                        self.pageCount += 1
                 }
                 self.fillDataSourse(news: news)
+
                 if news.totalResults == 0 {
                     self.emptyDataSource?()
                 }
@@ -70,4 +71,9 @@ class TableViewModel {
         }
         reloadData?()
     }
+}
+protocol ApiModelProtocol {
+    func willDisplaySell(at index: Int)
+    func searchByText(_ text:String?)
+    func getNews()
 }

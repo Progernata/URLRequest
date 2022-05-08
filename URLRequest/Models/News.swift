@@ -6,12 +6,13 @@
 //
 
 struct News: Decodable {
+    struct Article: Decodable {
+        let title: String
+        //let urlToImage: String //на потом
+    }
     let status: String
     let totalResults: Int
     let articles: [Article]
 }
 
-struct Article: Decodable {
-    let title: String
-    //let urlToImage: String //на потом
-}
+
