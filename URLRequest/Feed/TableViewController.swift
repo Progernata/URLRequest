@@ -46,6 +46,7 @@ class TableViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
                 self?.tableView.backgroundView = .none
+                print("reloadData")
             }
         }
         viewModel.emptyDataSource = { [weak self] in
@@ -84,7 +85,7 @@ extension TableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! TableViewCell
         cell.accessoryType = .disclosureIndicator
-        cell.setCellContent(imageName: viewModel.dataSource[indexPath.row].tableItemImage, labelText: viewModel.dataSource[indexPath.row].tableItemName)
+        cell.setCellContent(imageData: viewModel.dataSource[indexPath.row].tableItemImage, labelText: viewModel.dataSource[indexPath.row].tableItemName)
     
         return cell
     }

@@ -29,17 +29,13 @@ class TableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    required init?(coder aDecoder: NSCoder) {
-//       super.init(coder: aDecoder)
-//    }
-    
     private func configUICell(){
         self.backgroundColor = .lightGray
     }
     
     private func configUIImageView(){
         cellImageView.layer.cornerRadius = 10
-        cellImageView.contentMode = .scaleAspectFit
+        cellImageView.contentMode = .scaleAspectFill
         cellImageView.clipsToBounds = true
     }
     
@@ -54,8 +50,8 @@ class TableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             cellImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            cellImageView.heightAnchor.constraint(equalToConstant: 60),
-            cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 16/9)
+            cellImageView.heightAnchor.constraint(equalToConstant: 100),
+            cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 14/9)
         ])
     }
     
@@ -69,9 +65,19 @@ class TableViewCell: UITableViewCell {
         ])
     }
     
-    func setCellContent(imageName: String, labelText: String){
-        self.cellImageView.image = UIImage(named: imageName)
+    func setCellContent(imageData: Data, labelText: String){
+        self.cellImageView.image = UIImage(data: imageData)?.scaled(to: 70)
         self.cellLabel.text = labelText
+    }
+}
+extension UIImage {
+    func scaled(to maxSize: CGFloat) -> UIImage? {
+        let aspectRatio: CGFloat = min(maxSize / size.width, maxSize / size.height)
+        let newSize = CGSize(width: size.width * aspectRatio, height: size.height * aspectRatio)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { context in
+            draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: newSize))
+        }
     }
 }
 

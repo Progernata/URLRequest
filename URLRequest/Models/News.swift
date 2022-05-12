@@ -8,7 +8,7 @@
 struct News: Decodable {
     struct Article: Decodable {
         let title: String
-        //let urlToImage: String //на потом
+        let urlToImage: String 
     }
     let status: String
     let totalResults: Int

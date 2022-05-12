@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import Alamofire
 
 class NewsFetcher: ApiFetcherProtocol {
 
     private let urlRequestSender: URLRequestSender
     private let afurlRequestSender: AFURLRequestSender
     
-    private let isMock = true
-    //private let isMock = false
+    //private let isMock = true
+    private let isMock = false
     
     init(urlRequestSender: URLRequestSender, afurlRequestSender: AFURLRequestSender){
         self.urlRequestSender = urlRequestSender
@@ -22,7 +23,7 @@ class NewsFetcher: ApiFetcherProtocol {
     
     func getNews(searchText: String, page: Int, pageSize: Int, completion: @escaping (Result<News, Error>) -> Void) {
         
-        guard isMock == false else {
+        guard !isMock else {
             let news = self.fetchFromJson(fileName: "MockNewsOnePage", modelType: News.self)
             print("Use mock!!!")
             return completion(.success(news))
@@ -35,10 +36,16 @@ class NewsFetcher: ApiFetcherProtocol {
         //afurlRequestSender.sendAFURLRequest(request, completion: completion) // Alamofire без роутера
         
         if page > 1 {
-            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.search(searchText), completion: completion) // Alamofire с роутером, работает при пагинации
+            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.pagination(searchText, page), completion: completion) // Alamofire с роутером, работает при пагинации
         } else {
-            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.pagination(searchText, page), completion: completion) // Alamofire с роутером, работает только при запуске
+            afurlRequestSender.sendAFURLRequestWithRouter(NewsRouter.search(searchText), completion: completion) // Alamofire с роутером, работает только при запуске
         }
+    }
+    
+    func downloadImageData(imageUrl: String, completion: @escaping (Data?) -> Void ){
+        
+        let url = URL(string: imageUrl)!
+        afurlRequestSender.downloadAFURLImage(url, completion: completion)
     }
         
     private func createNewRequest(params: [String: String]) -> URLRequest {

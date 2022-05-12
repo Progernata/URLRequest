@@ -16,7 +16,7 @@ class TableViewModel: ApiModelProtocol {
     
     private let pageSize = 10
     
-    private var searchText = "asrgargsrgsdgfsgr"
+    private var searchText = "May"
     private var page = 1
     private var pageCount = 0
     
@@ -66,12 +66,19 @@ class TableViewModel: ApiModelProtocol {
     }
     
     private func fillDataSourse(news: News) {
+
         for article in news.articles {
-            dataSource.append(TableItem(tableItemImage: "news", tableItemName: article.title))
+            newsFetcher.downloadImageData(imageUrl: article.urlToImage) {
+                imageData in
+                if let imageData = imageData {
+                    self.dataSource.append(TableItem(tableItemImage: imageData, tableItemName: article.title))
+                    self.reloadData?()
+                }
+            }
         }
-        reloadData?()
     }
 }
+
 protocol ApiModelProtocol {
     func willDisplaySell(at index: Int)
     func searchByText(_ text:String?)
