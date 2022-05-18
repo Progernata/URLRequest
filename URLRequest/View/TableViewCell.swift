@@ -65,9 +65,12 @@ class TableViewCell: UITableViewCell {
         ])
     }
     
-    func setCellContent(imageData: Data, labelText: String){
-        self.cellImageView.image = UIImage(data: imageData)?.scaled(to: 70)
+    func setCellContent(labelText: String) {
         self.cellLabel.text = labelText
+    }
+    
+    func setImageData(_ data: Data) {
+        self.cellImageView.image = UIImage(data: imageData)?.scaled(to: 70)
     }
 }
 extension UIImage {

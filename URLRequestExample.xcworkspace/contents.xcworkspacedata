@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/progernata/SkyEngDev/URLRequest/URLRequest/AlamofireURLRequestSender.swift">
-   </FileRef>
-   <FileRef
       location = "group:URLRequestExample.xcodeproj">
    </FileRef>
    <FileRef

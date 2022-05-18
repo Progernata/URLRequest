@@ -15,6 +15,7 @@ class TableViewController: UIViewController {
         tableView.rowHeight = 140
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -53,6 +54,13 @@ class TableViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.tableView.backgroundView = self?.emptyDataSourceBackground
             }
+        }
+        
+        viewModel.image = { [weak self] index data in
+            guard let self = self else { return }
+            let indexPath = IndexPath(row: index, section: 0)
+            let cell = self.tableView.tableView(self.tableView, cellForRowAt: indexPath) as? TableViewCell
+            cell?.setImageData(data)
         }
     }
 }
@@ -94,7 +102,7 @@ extension TableViewController: UITableViewDataSource {
 extension TableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        viewModel.willDisplaySell(at: indexPath.row)
+        viewModel.willDisplayCell(at: indexPath.row)
     }
 }
 
@@ -102,6 +110,13 @@ extension TableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchByText(searchBar.text)
+    }
+
+}
+        
+extension TableViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        viewModel.prefetchImage(for: indexPaths)
     }
 }
 

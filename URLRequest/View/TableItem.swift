@@ -8,7 +8,7 @@
 import UIKit
 
 struct TableItem {
-    var tableItemImage: Data
+//    var tableItemImage: Data?
     var tableItemName: String
 }
 

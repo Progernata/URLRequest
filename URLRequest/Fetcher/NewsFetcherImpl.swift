@@ -1,20 +1,16 @@
 //
-//  NewsFetcher.swift
+//  NewsFetcherImpl.swift
 //  URLRequestExample
 //
-//  Created by Наталья Булгакова on 20.04.2022.
+//  Created by Aleksandr Lis on 18.05.2022.
 //
 
 import Foundation
-import Alamofire
 
-class NewsFetcher: ApiFetcherProtocol {
+class NewsFetcherImpl: NewsFetcher {
 
     private let urlRequestSender: URLRequestSender
     private let afurlRequestSender: AFURLRequestSender
-    
-    //private let isMock = true
-    private let isMock = false
     
     init(urlRequestSender: URLRequestSender, afurlRequestSender: AFURLRequestSender){
         self.urlRequestSender = urlRequestSender
@@ -22,12 +18,6 @@ class NewsFetcher: ApiFetcherProtocol {
     }
     
     func getNews(searchText: String, page: Int, pageSize: Int, completion: @escaping (Result<News, Error>) -> Void) {
-        
-        guard !isMock else {
-            let news = self.fetchFromJson(fileName: "MockNewsOnePage", modelType: News.self)
-            print("Use mock!!!")
-            return completion(.success(news))
-        }
         
         //let params = getQueryParams(searchText: searchText, page: page, pageSize: pageSize)
         //let request = createNewRequest(params: params)
@@ -73,30 +63,11 @@ class NewsFetcher: ApiFetcherProtocol {
         }
         return queryParams
     }
-    
-    private func fetchFromJson<T: Decodable>(fileName: String, modelType: T.Type) -> T {
-        guard let sourceUrl = Bundle.main.url(forResource: fileName, withExtension: "json") else {
-            fatalError("Can not find file \(fileName).json")
-        }
-        guard let sourceData = try? Data(contentsOf: sourceUrl) else {
-            fatalError("Can not convert data")
-        }
-        guard let newsData = try? JSONDecoder().decode(T.self, from: sourceData) else {
-            fatalError("Error decode of data")
-        }
-        
-        print("readFromFile \(newsData)")
-        return newsData
-    }
 }
 
-extension URLComponents { 
+extension URLComponents {
 
     mutating func setQueryParams(with parameters: [String: String]) {
         self.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
     }
-}
-
-protocol ApiFetcherProtocol {
-    func getNews(searchText: String, page: Int, pageSize: Int, completion: @escaping (Result<News, Error>) -> Void)
 }
